@@ -8,13 +8,24 @@ import { LogEmp } from './model/logEmp.model';
 @Injectable({
   providedIn: 'root'
 })
-export class AppapiService {
- baseApiUrl:string= environment.baseUrl;
 
+export class AppapiService {
+abc:any;
+ baseApiUrl:string= environment.baseUrl;
+ 
   constructor(private http:HttpClient) { }
 
   getallEmployee():Observable<Employee[]>{
-   return this.http.get<Employee[]>(this.baseApiUrl+'/api/Employees');
+    
+
+    if(sessionStorage.getItem("key") != null){
+
+      return this.http.get<Employee[]>(this.baseApiUrl+'/api/Employees');
+    }
+     
+     return this.abc;
+    
+  
   }
 
   AddEmpoyee(empoyeereq:Employee):Observable<Employee>{

@@ -12,6 +12,7 @@ export class LogEmpComponent implements OnInit {
   resPost:LogEmp={
     name:"",
     email:"",
+    token:""
   }
   constructor(private apiSer:AppapiService,private router:Router) { }
 
@@ -22,7 +23,16 @@ export class LogEmpComponent implements OnInit {
     console.log(this.resPost);
     this.apiSer.logEmp(this.resPost).subscribe(res=>{
   console.log(res)
-  this.router.navigate(['employee-list'])
+  var data= res;
+  console.log(data.token)
+  // var token = res.token;
+  sessionStorage.setItem("key",data.token);
+  if( sessionStorage.getItem("key") != null){
+    this.router.navigate(['employee-list'])
+  }else{
+    alert('Invalid Credentials')
+  }
+
     })
 
     }
